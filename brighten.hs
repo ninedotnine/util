@@ -53,5 +53,5 @@ brighten !val = if val > max_brightness - increment
 
 darken :: Int -> Int
 darken !val = if val < increment
-    then 0
+    then 1
     else val - increment
