@@ -1,7 +1,9 @@
+#!/bin/runghc
 -- this program would prabably be better with IO.Strict.
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE BangPatterns #-}
 {-# OPTIONS_GHC -Wall #-}
+
 import System.Environment (getArgs)
 import System.IO
 import Text.Read (readMaybe)
