@@ -1,0 +1,9 @@
+#!/usr/bin/zsh
+
+autoload -U colors && colors
+
+for x in "black" "red" "green" "yellow" "blue" "magenta" "cyan" "white";
+do
+    echo "$fg[$x]$x$reset_color"
+    echo "$fg_bold[$x]bold $x$reset_color"
+done
