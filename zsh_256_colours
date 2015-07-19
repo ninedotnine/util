@@ -1,0 +1,8 @@
+#!/usr/bin/zsh
+
+for COLOUR in {0..255} 
+do
+    TAG="\033[38;5;${COLOUR}m"
+    STR="38;5;${COLOUR}"
+    echo -e "${TAG}${STR}${NONE}"
+done
