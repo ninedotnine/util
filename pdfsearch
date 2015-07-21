@@ -1,0 +1,14 @@
+#!/usr/bin/dash
+# dependencies: find, evince
+
+# filename=$(find ~/docs ~/downloads -name "*3.pdf" -printf "%f                 \ #%h\n" | dmenu -i -l 20)
+
+filename=$(find ~/docs ~/downloads /var/lib/transmission/docs -name "*.pdf*" | dmenu -i -l 5)
+
+# bashism
+# if [[ $filename ]]; then
+if [ "$filename" ]; then
+    exec evince "$filename"
+else
+    echo "no filename specified" >&2
+fi
