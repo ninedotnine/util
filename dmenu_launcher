@@ -1,0 +1,10 @@
+#!/bin/dash
+# a customized version of dmenu_run, 9.9
+# aug 22 2014
+
+# cache only the things you will actually run, instead of everything in $PATH
+# remember to sort this file periodically!
+cache="$HOME/.cache/dmenu_launcher"
+
+cat "$cache" | dmenu "$@" | dash &
+# cat "$cache" | dmenu "$@" | ${SHELL:-"/bin/sh"} &

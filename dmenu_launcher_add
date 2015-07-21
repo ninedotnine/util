@@ -1,0 +1,10 @@
+#!/bin/dash
+# used to add to the cache of dmenu_launcher 9.9
+# aug 22 2014
+
+cache="$HOME/.cache/dmenu_launcher"
+
+dmenu_path | dmenu "$@" >> "$cache"
+
+# remember to sort this file 
+sort -u "$cache" --output="$cache"
