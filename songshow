@@ -1,0 +1,4 @@
+#!/bin/dash
+while true; do
+    xsetroot -name "$( mpc current --wait )"
+done
