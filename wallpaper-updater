@@ -1,0 +1,27 @@
+#!/bin/dash
+
+# #!/bin/bash
+
+# put this in crontab
+# current wallpaper stored in ~/.fehbg
+
+# set wallpaper with commandline arg
+if [ $# -eq 1 ]; then
+    pic=$1;
+else
+    #pic=$(ls -1 $HOME/pics/wallpapers/ | sort --random-sort | head -n 1 )
+    #pic="$HOME/pics/wallpapers/$pic"
+    pic=$(find $HOME/pics/wallpapers/ -type f | shuf --head-count=1)
+    # use this to count frequency 
+    echo "[$(date +'%F %R')] $pic" >> "$HOME/pics/wallpaper.log"
+fi;
+
+# go into subdirs
+#while [ -d $pic ]; do
+    #pic2=$(ls -1 $pic | sort --random-sort | head -1 )
+    #pic=$pic/$pic2
+#done;
+
+
+exec feh --bg-fill "$pic"
+# --bg-center --bg-fill --bg-max --bg-scale --bg-tile
