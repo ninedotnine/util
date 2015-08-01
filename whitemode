@@ -1,0 +1,11 @@
+#!/bin/dash
+
+val=$(xrdb -query | grep "URxvt.shading" | awk '{ print $2}')
+
+if [ "$val" -gt "100" ]; then
+    val="20"
+else
+    val="185"
+fi
+
+echo "URxvt.shading: $val" | xrdb -merge
