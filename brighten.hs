@@ -13,7 +13,7 @@ path = "/sys/class/backlight/intel_backlight/brightness"
 
 max_brightness, increment :: Int
 max_brightness = 7812
-increment = 500
+increment = 350
 
 main :: IO ()
 main = do
