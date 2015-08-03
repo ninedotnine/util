@@ -1,11 +1,11 @@
 #!/bin/dash
 
-val=$(xrdb -query | grep "URxvt.shading" | awk '{ print $2}')
+bgcolor=$(xrdb -query | grep "URxvt.background" | awk '{ print $2}')
 
-if [ "$val" -gt "100" ]; then
-    val="20"
+if [ "$bgcolor" = "rgba:1111/1111/1111/dddd" ]; then
+    newbgcolor="rgba:dddd/dddd/dddd/dddd" 
 else
-    val="185"
+    newbgcolor="rgba:1111/1111/1111/dddd"
 fi
 
-echo "URxvt.shading: $val" | xrdb -merge
+echo "URxvt.background: $newbgcolor" | xrdb -override
