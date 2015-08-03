@@ -1,5 +1,7 @@
 #!/usr/bin/dash
 
+[ "$(hostname)" = "multivac" ] || exit 1
+
 # flips the xorg output, rotates the touchscreen, disables the touchpad
 
 if [ "$1" = "-u" ] ; then
