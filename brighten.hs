@@ -17,7 +17,6 @@ increment = 350
 
 main :: IO ()
 main = do
--- only opens the file once but is uglier...
     args <- getArgs
     handle <- openFile path ReadWriteMode
     current_bright <- read <$> hGetLine handle
@@ -27,15 +26,6 @@ main = do
     hPutStrLn handle (new_bright)
     hSetFileSize handle (fromIntegral (length (new_bright) + 1))
     hClose handle
-{-
--- this implementation looks nice, but i think it causes a race condition... 
-    args <- getArgs
-    current_bright <- read <$> readFile path
-    let new_bright = show $ calc current_bright args
-    putStrLn new_bright
-    writeFile path new_bright
--}
-
 
 calc :: Int -> [String] -> Int
 calc _ (x:_) 
