@@ -20,21 +20,21 @@ main = do
     args <- getArgs
     handle <- openFile path ReadWriteMode
     current_bright <- read <$> hGetLine handle
-    let new_bright = show $ calc current_bright args
+    let new_bright = show $ calc args current_bright 
 --     putStrLn new_bright
     hSeek handle AbsoluteSeek 0
     hPutStrLn handle (new_bright)
     hSetFileSize handle (fromIntegral (length (new_bright) + 1))
     hClose handle
 
-calc :: Int -> [String] -> Int
-calc _ (x:_) 
-    | Just val <- readMaybe x = if val > max_brightness
+calc :: [String] -> Int -> Int
+calc (x:_) 
+    | Just val <- readMaybe x = \_ -> if val > max_brightness
         then max_brightness
         else val
-calc val ("-d":_) = darken val
-calc val ("-b":_) = brighten val
-calc val _ = brighten val -- default is brighten
+calc ("-d":_) = darken 
+calc ("-b":_) = brighten 
+calc _ = brighten -- default is brighten
 
 brighten :: Int -> Int
 brighten !val = if val > max_brightness - increment 
