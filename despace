@@ -1,0 +1,29 @@
+#!/bin/dash
+# removes spaces from filenames 
+# dependencies: sed
+
+if [ "$#" -lt 1 ]; then
+    echo "needs an argument"
+    exit 1
+fi
+
+while [ "$#" -gt 0 ]; do
+
+    oldname="$1"
+    newname=$(echo "$oldname" | sed 's/ /_/g')
+
+    if [ ! -e "$oldname" ]; then
+        echo "$oldname not found..."
+        exit 2
+    elif [ -e "$newname" ]; then
+        echo "$newname exists."
+        shift 
+        continue
+    fi
+        
+    echo moving "$oldname" to "$newname"
+    mv --no-clobber "$oldname" "$newname"
+    # why did i do this...? 
+    # mv --no-clobber "$oldname" $(echo "$newname" | sed 's/ /_/g')
+    shift
+done

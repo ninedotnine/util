@@ -1,0 +1,23 @@
+#!/bin/dash
+
+filename=$(awk '{ print $3 }' ~/.fehbg | tr -d "'")
+
+# use zenity if not running in a terminal 
+# if [ "$-" != "*i*" ] ; then # this didn't work
+if [ -t 0 ] ; then
+    echo -n "really remove:  $filename ? (y/n) "
+#     read -e confirmation # bashism
+    read confirmation
+else 
+    zenity --question --text="really remove:  $filename ? (y/n) " && confirmation="y"
+fi
+
+# if [ "$confirmation" == "y" ]; then # bashism
+if [ "$confirmation" = "y" ]; then
+    rm "$filename" && echo "behold! the deed is done."
+#     echo "hellO! you need to modify this script if you wanna actually delete"
+else
+    echo "$0: not deleting $filename"
+fi
+
+
