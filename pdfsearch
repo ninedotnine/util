@@ -3,7 +3,14 @@
 
 # filename=$(find ~/docs ~/downloads -name "*3.pdf" -printf "%f                 \ #%h\n" | dmenu -i -l 20)
 
-filename=$(find ~/docs ~/downloads /var/lib/transmission/docs -name "*.pdf*" | dmenu -i -l 5)
+host=$(hostname)
+if [ "$host" -eq "arch" ]; then
+    filename=$(find ~/docs ~/downloads /var/lib/transmission/docs -name "*.pdf*" | dmenu -i -l 5)
+else 
+    # no transmission
+    filename=$(find ~/docs ~/downloads -name "*.pdf*" | dmenu -i -l 5)
+fi
+
 
 # bashism
 # if [[ $filename ]]; then
