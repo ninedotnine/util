@@ -1,5 +1,5 @@
 #!/usr/bin/dash
-# dependencies: find, evince
+# dependencies: find, evince, dmenu
 
 # filename=$(find ~/docs ~/downloads -name "*3.pdf" -printf "%f                 \ #%h\n" | dmenu -i -l 20)
 
