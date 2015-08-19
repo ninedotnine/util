@@ -1,6 +1,7 @@
 #!/bin/dash
+# dependencies: feh
 
-# #!/bin/bash
+#!/bin/bash
 
 # put this in crontab
 # current wallpaper stored in ~/.fehbg
@@ -22,6 +23,15 @@ fi;
     #pic=$pic/$pic2
 #done;
 
+dimensions=$(feh -L "%w %h" $pic)
+# ratio=$(feh -L "%w %h" $pic | awk '{ print $1/$2-1.77 }')
 
-exec feh --bg-fill "$pic"
+# this should actually try to handle the ratio instead of exact size
+if [ "$dimensions" = "1366 768" ]; then
+    # if ratio is the same as the resolution, might as well scale it
+    exec feh --bg-fill "$pic"
+else
+    # if ratio is wrong, just center and cut some stuff off
+    exec feh --bg-center "$pic"
+fi
 # --bg-center --bg-fill --bg-max --bg-scale --bg-tile
