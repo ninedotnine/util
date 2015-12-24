@@ -11,8 +11,9 @@ import Text.Read (readMaybe)
 path :: FilePath
 path = "/sys/class/backlight/intel_backlight/brightness"
 
-max_brightness, increment :: Int
+max_brightness, min_brightness, increment :: Int
 max_brightness = 7812
+min_brightness = 1
 increment = 350
 
 main :: IO ()
@@ -28,20 +29,14 @@ main = do
     hClose handle
 
 calc :: [String] -> Int -> Int
-calc (x:_) 
-    | Just val <- readMaybe x = \_ -> if val > max_brightness
-        then max_brightness
-        else val
+calc (x:_) | Just val <- readMaybe x = \_ -> -- if a value is provided, then
+    max min_brightness (min max_brightness val) -- ensure 1 < val < 7812
 calc ("-d":_) = darken 
 calc ("-b":_) = brighten 
 calc _ = brighten -- default is brighten
 
 brighten :: Int -> Int
-brighten !val = if val > max_brightness - increment 
-    then max_brightness
-    else val + increment
+brighten !val = min max_brightness (val + increment)
 
 darken :: Int -> Int
-darken !val = if val <= increment
-    then 1
-    else val - increment
+darken !val = max min_brightness (val - increment)
