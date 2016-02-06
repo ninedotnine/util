@@ -10,14 +10,16 @@ tmpcache="/tmp/dmenu_music2.tmp"
 #find -L ~/music -iname "*.m4a" -printf "%f\n" >> "$cache"
 #find -L ~/music -iname "*.mp3" -printf "%f\n" >> "$cache"
 #find -L ~/music -iname "*.ogg" -printf "%f\n" >> "$cache"
+#find -L ~/music -iname "*.opus" -printf "%f\n" >> "$cache"
 
 # find full paths
 # uncomment these if the database is out of date
-# find -L ~/music -iname "*.flac" > "$cache"
-# find -L ~/music -iname "*.m4a" >> "$cache"
-# find -L ~/music -iname "*.mp3" >> "$cache"
-# find -L ~/music -iname "*.ogg" >> "$cache"
-# sort "$cache" -o "$cache"
+find -L ~/music -iname "*.flac" > "$cache"
+find -L ~/music -iname "*.m4a" >> "$cache"
+find -L ~/music -iname "*.mp3" >> "$cache"
+find -L ~/music -iname "*.ogg" >> "$cache"
+find -L ~/music -iname "*.opus" >> "$cache"
+sort "$cache" -o "$cache"
 
 # cut the common directory out of the names (the first 17 chars)
 cut --characters=17- "$cache" > "$tmpcache"
