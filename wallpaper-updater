@@ -19,10 +19,10 @@ dimensions=$(feh -L "%w %h" $pic)
 
 # this should actually try to handle the ratio instead of exact sizes,
 # but ugh, floating-point math...
-if [ "$dimensions" = "1366 768" -o
-     "$dimensions" = "1400 787" -o
-     "$dimensions" = "1600 900" -o
-     "$dimensions" = "1920 1080" -o
+if [ "$dimensions" = "1366 768" -o \
+     "$dimensions" = "1400 787" -o \
+     "$dimensions" = "1600 900" -o \
+     "$dimensions" = "1920 1080" -o \
      "$dimensions" = "3000 1688" ]; then
     # if ratio is the same as the resolution, might as well scale it
     exec feh --bg-fill "$pic"
