@@ -19,6 +19,7 @@ find -L ~/music -iname "*.m4a" >> "$cache"
 find -L ~/music -iname "*.mp3" >> "$cache"
 find -L ~/music -iname "*.ogg" >> "$cache"
 find -L ~/music -iname "*.opus" >> "$cache"
+find -L ~/music -iname "*.mpg" >> "$cache"
 sort "$cache" -o "$cache"
 
 # cut the common directory out of the names (the first 17 chars)
@@ -37,8 +38,10 @@ rm "$tmpcache"
 location="$musicdir$filename"
 
 if [ -e "$location" ]; then
-    # zenity --warning --text="$location is real!!!"
+#     zenity --warning --text="$location is real!!!"
     exec mplayer "$location" > /dev/null
+# opening the fifo for reading will block until another process opens to write
+#     exec mplayer "$location" > /dev/null < ~/.mplayer/input_pipe
 else
     zenity --warning --text="$location is false!!!"
     #echo "no valid filename specified" >&2
