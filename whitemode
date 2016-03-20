@@ -3,7 +3,7 @@
 bgcolor=$(xrdb -query | grep "URxvt.background" | awk '{ print $2}')
 
 if [ "$bgcolor" = "rgba:1111/1111/1111/dddd" ]; then
-    newbgcolor="rgba:dddd/dddd/dddd/dddd" 
+    newbgcolor="rgba:eeee/eeee/eeee/eeee"
 else
     newbgcolor="rgba:1111/1111/1111/dddd"
 fi
