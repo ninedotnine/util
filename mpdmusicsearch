@@ -1,0 +1,11 @@
+#!/usr/bin/dash
+# dependencies: dmenu, zenity
+
+filename=$(mpc listall | dmenu -i -l 4)
+if [ "$?" = 1 ]; then
+    zenity --warning --text="did you hit ESC?"
+    exit 1
+fi
+
+mpc insert "$filename"
+mpc next
