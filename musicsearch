@@ -1,5 +1,5 @@
 #!/usr/bin/dash
-# dependencies: find, mplayer, zenity
+# dependencies: dmenu, find, mplayer, zenity
 
 musicdir="$HOME/music/"
 cache="$HOME/.cache/dmenu_music"
