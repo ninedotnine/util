@@ -47,13 +47,11 @@ clip=""
 errors=false
 
 # Loop through arguments
-while [ $# -gt 0 ]; do
-	file="$1"
-	shift
+for file in "$@"; do
 
-	# Check file exists
-	if [ ! -f "$file" ]; then
-		echo "File '$file' doesn't exist; skipping" >&2
+	# Check file exists and is readable
+	if [ ! -f "$file" ] || [ ! -r "$file" ]; then
+		echo "File '$file' doesn't exist or can't be read; skipping" >&2
 		errors=true
 		continue
 	fi
