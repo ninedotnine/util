@@ -14,7 +14,12 @@ fi
 
 # if [ "$confirmation" == "y" ]; then # bashism
 if [ "$confirmation" = "y" ]; then
-    rm "$filename" && echo "behold! the deed is done."
+    rm "$filename" && 
+        if [ -t 0 ]; then
+            echo "behold! the deed is done."
+        else 
+            zenity --info --text="behold! the deed is done."
+        fi
 #     echo "hellO! you need to modify this script if you wanna actually delete"
 else
     echo "$0: not deleting $filename"
