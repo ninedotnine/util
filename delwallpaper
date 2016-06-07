@@ -3,16 +3,13 @@
 filename=$(tail -n 1 ~/.fehbg | awk '{ print $3 }' | tr -d "'")
 
 # use zenity if not running in a terminal 
-# if [ "$-" != "*i*" ] ; then # this didn't work
 if [ -t 0 ] ; then
     echo -n "really remove: $filename ? (y/n) "
-#     read -e confirmation # bashism
     read confirmation
 else 
     zenity --question --text="really remove:  $filename ? (y/n) " && confirmation="y"
 fi
 
-# if [ "$confirmation" == "y" ]; then # bashism
 if [ "$confirmation" = "y" ]; then
     rm "$filename" && 
         if [ -t 0 ]; then
@@ -20,7 +17,6 @@ if [ "$confirmation" = "y" ]; then
         else 
             zenity --info --text="behold! the deed is done."
         fi
-#     echo "hellO! you need to modify this script if you wanna actually delete"
 else
     echo "$0: not deleting $filename"
 fi
