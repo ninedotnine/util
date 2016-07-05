@@ -1,0 +1,9 @@
+#!/usr/bin/zsh
+# dash won't handle the colours properly...
+# interestingly, zsh makes dwm freeze if you try to use a color < 16
+# '♫' is unicode \u266B
+
+while true; do
+    mpc idle > /dev/null
+    echo -ne "\x1b[38;5;199m♫ \x1b[38;5;231m $(mpc current)\x1b[0m" | xargs -0 xsetroot -name
+done
