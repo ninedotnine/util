@@ -6,5 +6,5 @@
 # remember to sort this file periodically!
 cache="$HOME/.cache/dmenu_launcher"
 
-program=$(dmenu < "$cache")
+program=$(dmenu < "$cache") || exit
 exec "$program"
