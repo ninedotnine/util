@@ -8,7 +8,7 @@ if [ "$host" -eq "arch" ]; then
     filename=$(find ~/docs ~/downloads /var/lib/transmission/docs -name "*.pdf*" | dmenu -i -l 5 -sb "#570000" -sf "#ffffff")
 else 
     # no transmission
-    filename=$(find ~/docs ~/downloads -name "*.pdf*" | dmenu -i -l 5 -sb "#570000" -sf "#ffffff")
+    filename=$(find ~/docs ~/downloads -iname "*.pdf*" | dmenu -i -l 5 -sb "#570000" -sf "#ffffff")
 fi
 
 if [ "$filename" ]; then
