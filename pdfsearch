@@ -4,7 +4,7 @@
 # filename=$(find ~/docs ~/downloads -name "*3.pdf" -printf "%f                 \ #%h\n" | dmenu -i -l 20)
 
 host=$(hostname)
-if [ "$host" -eq "arch" ]; then
+if [ "$host" = "arch" ]; then
     filename=$(find ~/docs ~/downloads /var/lib/transmission/docs -name "*.pdf*" | dmenu -i -l 5 -sb "#570000" -sf "#ffffff")
 else 
     # no transmission
@@ -12,7 +12,7 @@ else
 fi
 
 if [ "$filename" ]; then
-    exec evince "$filename"
+    evince "$filename" > /dev/null &
 else
     echo "no filename specified" >&2
 fi
