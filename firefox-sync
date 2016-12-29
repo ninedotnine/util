@@ -1,0 +1,53 @@
+#!/bin/bash
+# modified by dan with thanks: https://www.verot.net/firefox_tmpfs.htm
+
+STATIC=main
+PROFILE="pm7l6k27.default-1465192613172"
+VOLATILE=/dev/shm/$USER/firefox
+
+usage() {
+    echo "Usage: firefox-sync [-dh] [-p profile-basename]"
+}
+
+longhelp() {
+    usage
+    cat <<EOF
+
+    This program syncs your firefox profile to a ramdisk (/dev/shm) and back.
+
+    -h prints this help message
+    -d prints the default profile directory
+EOF
+    exit 0
+}
+
+while getopts dhp: options
+do
+    case $options in
+        d) echo "default profile directory is ~/.mozilla/firefox/$PROFILE"
+            exit 0;;
+        h) longhelp;;
+        ?) usage ; exit 0;;
+    esac
+done
+
+[[ -r $VOLATILE ]] || install -dm700 $VOLATILE
+
+cd ~/.mozilla/firefox
+
+if [ ! -e "$PROFILE" ]; then
+    echo "~/.mozilla/firefox/$PROFILE does not exist" > /dev/stderr
+    exit 1
+fi
+
+if [[ `readlink $PROFILE` != $VOLATILE ]]; then
+    mv $PROFILE $STATIC
+    ln -s $VOLATILE $PROFILE
+fi
+
+if [[ -e $PROFILE/.unpacked ]]; then
+    rsync -av --delete --exclude .unpacked ./$PROFILE/ ./$STATIC/
+else
+    rsync -av ./$STATIC/ ./$PROFILE/
+    touch $PROFILE/.unpacked
+fi
