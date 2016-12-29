@@ -28,6 +28,8 @@ if [ "$dimensions" = "1366 768" -o \
     exec feh --bg-fill "$pic"
 else
     # if ratio is wrong, just center and cut some stuff off
-    exec feh --bg-center "$pic"
+#     exec feh --bg-center "$pic"
+    # if ratio is wrong, just max and have some dumb black bars
+    exec feh --bg-max "$pic"
 fi
 # --bg-center --bg-fill --bg-max --bg-scale --bg-tile
