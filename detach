@@ -1,3 +1,11 @@
 #!/bin/dash
+
+if [ "$#" -lt 1 ]; then
+    echo "needs an argument"
+    exit 1
+fi
+
+# udisks --unmount "$1" && 
 sudo udisks --eject "$1" && 
 sudo udisks --detach "$1"
+# udisks --eject "$1" --detach "$1"
