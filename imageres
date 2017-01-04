@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/dash
 
 if [ "$#" -lt 1 ]; then
     echo "needs an argument"
     exit 1
 fi
 
-feh -L "%n %w %h" $@ | awk '{ print $1 "\t" $2 "\t" $3 "\t" $2/$3 }'
+feh -L "%n %w %h" $@ | column --table
