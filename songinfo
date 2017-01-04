@@ -1,0 +1,12 @@
+#!/bin/zsh
+# dash won't handle the colours properly...
+echo -ne "\x1b[38;5;199m♫\x1b[0m $(mpc current)" | xargs -0 xsetroot -name
+# xsetroot -name "♫ $(mpc current)" 
+# xsetroot -name "$(echo -ne '\x1b[38;5;199m♫\x1b[0m $(mpc current)' )"
+# really gotta handle the nothing playing situation somehow...
+
+# magenta="\x1b[38;5;199m"
+# reset="\x1b[0m"
+# echo -ne "$magenta ♫ $reset $(mpc current)" | xargs -0 xsetroot -name 
+
+# '♫' is unicode \u266B

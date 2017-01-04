@@ -1,0 +1,49 @@
+#!/usr/bin/dash
+# dependencies: find, mplayer
+# doesn't work yet
+
+# filename=$(find ~/docs ~/downloads -name "*3.pdf" -printf "%f                 \ #%h\n" | dmenu -i -l 20)
+
+# bashism
+# if [[ $filename ]]; then
+if [ "$filename" ]; then
+    exec mplayer "$filename" > /dev/null
+else
+    echo "no filename specified" >&2
+fi
+
+trimdir="$HOME/videos/"
+cache="/tmp/videosearch"
+tmpcache="/tmp/videosearch2.tmp"
+
+# find full paths
+find -L ~/videos -iname "*.mpg" > "$cache"
+find -L ~/videos -iname "*.mov" >> "$cache"
+find -L ~/videos -iname "*.mp4" >> "$cache"
+find -L ~/videos -iname "*.ogv" >> "$cache"
+
+sort "$cache" -o "$cache"
+
+cut -c 18- "$cache" > "$tmpcache"
+
+mv "$tmpcache" "$cache"
+
+filename=$(dmenu -i -l 4 < "$cache")
+if [ "$?" = 1 ]; then
+    zenity --warning --text="did you hit ESC?"
+    rm "$cache"
+    exit 1
+fi
+
+#location=$(find ~/videos -name "$filename") 
+location="$trimdir$filename"
+
+if [ -e "$location" ]; then
+    # zenity --warning --text="$location is real!!!"
+    exec mplayer "$location" > /dev/null
+else
+    zenity --warning --text="error: file not found $location"
+    echo "no valid filename specified" >&2
+fi
+
+rm "$cache"
