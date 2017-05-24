@@ -25,10 +25,13 @@ main = do
     input <- getContents
     database <- map (last . words) . lines <$> readFile aliasFile
     let maybeSender = fmap fromLine (grepFrom input)
-    when (maybeSender == Nothing) (putStr input >> exitFailure)
+    when (maybeSender == Nothing) (bail input)
     let sender = fromJust maybeSender 
     unless (address sender `elem` database) (writeToFile sender)
     putStr input
+
+bail :: String -> IO ()
+bail input = putStr input >> exitFailure
 
 grepFrom :: String -> Maybe String
 grepFrom = fmap (fmap removeQuotes) (find (isPrefixOf "From") . lines)
