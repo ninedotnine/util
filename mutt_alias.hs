@@ -34,7 +34,7 @@ grepFrom :: String -> Maybe String
 grepFrom = fmap (fmap removeQuotes) (find (isPrefixOf "From") . lines)
 
 removeQuotes :: String -> String
-removeQuotes = filter ((==) '"')
+removeQuotes = filter ((/=) '"')
 
 fromLine :: String -> Alias
 fromLine input = Alias Nothing (unwords (init fromline)) (last fromline)
