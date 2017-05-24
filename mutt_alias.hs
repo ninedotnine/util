@@ -9,7 +9,7 @@
 
 -- import Data.Text
 import System.Exit
-import Data.Char (toLower)
+import Data.Char (toLower, isSpace)
 import Data.List (isPrefixOf, find)
 import Data.Maybe (fromJust)
 import Control.Monad
@@ -18,17 +18,22 @@ data Alias = Alias { alias :: Maybe String, name :: String, address :: String }
     deriving (Show, Eq)
 
 aliasFile :: FilePath
-aliasFile = "/home/dan/.mutt/aliases.dum.4"
+-- aliasFile = "/home/dan/.mutt/aliases.dum.4"
+aliasFile = "/home/dan/.mutt/aliases_hs_test"
 
 main :: IO ()
 main = do
     input <- getContents
-    database <- map (last . words) . lines <$> readFile aliasFile
+    database <- parse <$> readFile aliasFile
+--     print database
     let maybeSender = fmap fromLine (grepFrom input)
     when (maybeSender == Nothing) (bail input)
     let sender = fromJust maybeSender 
-    unless (address sender `elem` database) (writeToFile sender)
+    unless (map toLower (address sender) `elem` database) (writeToFile sender)
     putStr input
+
+parse :: String -> [String]
+parse = map ((map toLower) . last . words) . filter (not . all isSpace) . lines
 
 bail :: String -> IO ()
 bail input = putStr input >> exitFailure
@@ -47,7 +52,7 @@ fromLine input = Alias Nothing (unwords (init fromline)) (last fromline)
 -- promptForAlias alias = undefined
 
 writeToFile :: Alias -> IO ()
-writeToFile entry = appendFile aliasFile $ showAlias entry
+writeToFile entry = appendFile aliasFile $ "alias " ++ showAlias entry
 
 showAlias :: Alias -> String
 showAlias entry = unwords (ali:name entry:address entry:["\n"])
