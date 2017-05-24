@@ -1,1 +1,5 @@
-shell/get_xprops
+#!/bin/dash
+# use this script to parse the instance, class, name properties of an X window
+# with thanks to dwm and suckless: http://dwm.suckless.org/customisation/rules
+xprop | awk '    /^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print}    /^WM_NAME/{sub(/.* =/, "title:"); print}'
+
