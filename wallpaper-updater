@@ -6,7 +6,7 @@
 
 if [ $# -eq 1 ]; then
     # set wallpaper with commandline arg
-    pic=$1;
+    pic="$1";
 else
     # pic one at random
     pic=$(find $HOME/pics/wallpapers/ -type f | shuf --head-count=1)
@@ -14,7 +14,7 @@ else
     echo "[$(date +'%F %R')] $pic" >> "$HOME/pics/wallpaper.log"
 fi;
 
-dimensions=$(feh -L "%w %h" $pic)
+dimensions=$(feh -L "%w %h" "$pic")
 # ratio=$(feh -L "%w %h" $pic | awk '{ print $1/$2-1.77 }')
 
 # this should actually try to handle the ratio instead of exact sizes,
