@@ -1,0 +1,5 @@
+#!/usr/bin/dash
+while true ; do
+    mpc idle > /dev/null
+    dwmstatus --update
+done
