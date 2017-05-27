@@ -12,7 +12,7 @@ import System.Exit
 import Data.Char (toLower, isSpace)
 import Data.List (isPrefixOf, find)
 import Data.Maybe (fromJust)
-import Control.Monad
+import Control.Monad (when, unless)
 
 data Alias = Alias { alias :: Maybe String, name :: String, address :: String }
     deriving (Show, Eq)
