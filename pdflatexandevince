@@ -1,0 +1,9 @@
+#!/usr/bin/dash
+# this is pretty much just for vim
+ 
+# split up the name
+name=$(basename "$1" ".tex")
+# echo $name
+
+pdflatex "$1" && 
+evince "$name.pdf"
