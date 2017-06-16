@@ -7,9 +7,9 @@
 if [ "$1" = "-u" ] ; then
     xrandr --output eDP-1 --rotate inverted
     xinput set-prop "ELAN Touchscreen" "Coordinate Transformation Matrix" -1 0 1 0 -1 1 0 0 1
-    xinput --disable "DLL064D:00 06CB:2985"
+    xinput --disable "Synaptics s3203"
 else
     xrandr --output eDP-1 --rotate normal
     xinput set-prop "ELAN Touchscreen" "Coordinate Transformation Matrix" 1 0 0 0 1 0 0 0 1
-    xinput --enable "DLL064D:00 06CB:2985"
+    xinput --enable "Synaptics s3203"
 fi
