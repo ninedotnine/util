@@ -8,4 +8,4 @@ if [ "$?" = 1 ]; then
 fi
 
 mpc add "$filename"
-mpc playlist | wc -l | xargs mpc play
+mpc playlist | wc -l | xargs mpc play --quiet
