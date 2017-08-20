@@ -1,0 +1,21 @@
+#!/usr/bin/dash
+
+if [ $# -eq 0 ]; then
+    echo "no args provided."
+    exit 1
+fi
+
+# flip the X display and initialize the controller
+xflip -u
+dan_joymouse &
+
+# play videos
+mplayer -fs -framedrop -lavdopts lowres=1:fast:skiploopfilter=all $@
+
+# reset the X display to normal
+xflip
+
+# terminate joymouse
+# echo "killing $!"
+# kill $!
+pidof joymouse | xargs kill
