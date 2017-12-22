@@ -1,4 +1,3 @@
-#!/bin/runghc
 -- this program would prabably be better with IO.Strict.
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE BangPatterns #-}
