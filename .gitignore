@@ -1,4 +1,4 @@
 *.o
 *.hi
-mutt_alias
+mutt_alias/bin/
 brighten/bin/
