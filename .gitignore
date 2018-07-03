@@ -1,4 +1,4 @@
 *.o
 *.hi
-brighten
 mutt_alias
+brighten/bin/
