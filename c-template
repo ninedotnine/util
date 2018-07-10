@@ -2,7 +2,7 @@
 
 # c-template - writes a template for a c function
 
-if [ ! $1 ]; then
+if [ ! "$1" ]; then
     echo "usage: c-template comments"
     exit 1
 fi
