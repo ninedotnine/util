@@ -1,0 +1,10 @@
+#!/usr/bin/dash
+
+# note that this script is EXTREMELY DESTRUCTIVE.
+
+for dir do
+    echo "shredding $dir"
+    find "$dir" -depth -type f -exec shred -fzu -n 1 {} \;
+    find "$dir" -depth -type d -exec rmdir {} \;
+    sync
+done
