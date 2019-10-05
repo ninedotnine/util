@@ -1,0 +1,7 @@
+#!/usr/bin/dash
+zenity --question --text="you'll never walk alone!" --no-wrap \
+    --ok-label "this is it, isn't it?" --cancel-label "turn the bloody engines back on"
+
+if [ "$?" = 0 ]; then
+    systemctl poweroff
+fi
