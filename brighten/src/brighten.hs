@@ -3,6 +3,8 @@
 {-# LANGUAGE BangPatterns #-}
 {-# OPTIONS_GHC -Wall #-}
 
+import Data.Functor ((<&>))
+import Data.Function ((&))
 import System.Environment (getArgs)
 import System.IO
 import Text.Read (readMaybe)
@@ -19,12 +21,10 @@ main :: IO ()
 main = do
     args <- getArgs
     handle <- openFile path ReadWriteMode
-    current_bright <- read <$> hGetLine handle
-    let new_bright = show $ calc args current_bright 
---     putStrLn new_bright
+    new_brightness <- hGetLine handle <&> read <&> calc args <&> show
     hSeek handle AbsoluteSeek 0
-    hPutStrLn handle (new_bright)
-    hSetFileSize handle (fromIntegral (length (new_bright) + 1))
+    hPutStrLn handle new_brightness
+    hSetFileSize handle (length new_brightness + 1 & fromIntegral)
     hClose handle
 
 calc :: [String] -> Int -> Int
