@@ -28,10 +28,11 @@ main = do
     hClose handle
 
 calc :: [String] -> Int -> Int
-calc (x:_) | Just val <- readMaybe x = \_ -> -- if a value is provided, then
-    max min_brightness (min max_brightness val) -- ensure 1 < val < 7812
-calc ("-d":_) = darken 
-calc ("-b":_) = brighten 
+calc ("-b":_) = brighten
+calc ("-d":_) = darken
+calc (x:_)
+    | Just val <- readMaybe x = const $ -- if a value is provided, then
+        max min_brightness (min max_brightness val) -- ensure 1 < val < 3750
 calc _ = brighten -- default is brighten
 
 brighten :: Int -> Int
