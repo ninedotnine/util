@@ -4,7 +4,7 @@
 
 # cache only the things you will actually run, instead of everything in $PATH
 # remember to sort this file periodically!
-cache="$HOME/.cache/dmenu_launcher"
+cache="$HOME/.local/share/dmenu_launcher"
 
 program=$(dmenu "$@" < "$cache") || exit
 exec "$program"

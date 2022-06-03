@@ -2,7 +2,7 @@
 # used to add to the cache of dmenu_launcher 9.9
 # aug 22 2014
 
-cache="$HOME/.cache/dmenu_launcher"
+cache="$HOME/.local/share/dmenu_launcher"
 
 dmenu_path | dmenu "$@" >> "$cache"
 

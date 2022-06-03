@@ -2,7 +2,7 @@
 # dependencies: dmenu, find, mplayer, zenity
 
 musicdir="$HOME/music/"
-cache="$HOME/.cache/dmenu_music"
+cache="$HOME/.local/share/dmenu_music"
 tmpcache="/tmp/dmenu_music2.tmp"
 
 # find just basenames
