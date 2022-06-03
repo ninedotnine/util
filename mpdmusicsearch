@@ -1,11 +1,33 @@
 #!/usr/bin/dash
 # dependencies: dmenu, zenity
 
-filename=$(mpc listall --format="%file%" | dmenu -i -l 4)
-if [ "$?" = 1 ]; then
-#     zenity --warning --text="did you hit ESC?"
-    exit 1
-fi
+append() {
+    mpc add "$1"
+}
 
-mpc add "$filename"
-mpc playlist --format="%file%" | wc -l | xargs mpc play --quiet
+insert() {
+    mpc insert "$1"
+}
+
+play() {
+    append "$1"
+    mpc playlist --format="%file%" | wc -l | xargs mpc play --quiet
+}
+
+main() {
+    operation=$(/bin/echo -e "append\ninsert\nplay" | dmenu -i -l 4)
+    if [ "$?" = 1 ]; then
+        exit 1
+    fi
+    zenity --warning --text="$operation"
+
+    filename=$(mpc listall --format="%file%" | dmenu -i -l 4)
+    if [ "$?" = 1 ]; then
+#     zenity --warning --text="did you hit ESC?"
+        exit 1
+    fi
+
+    "$operation" "$filename"
+}
+
+main
