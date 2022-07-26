@@ -1,0 +1,43 @@
+#!/bin/dash
+
+# ja - automatically handle java files
+# last updated sep 27 2013
+
+# add other client suffixes to this (if you want to!)
+clientsuffixes="Demo Main Client Test"
+
+# quit if no argument is provided
+if [ "$#" -lt 1 ]; then
+    echo "needs an argument"
+    exit 1
+fi
+
+runmain() {
+    # locate and run the client file
+    for main in $clientsuffixes; do
+        if [ -e "$name$main.java" ]; then
+            echo "found client: $name$main.java"
+            recompile "$name$main" && java -ea "$name$main" $@
+            break
+        fi  
+    done
+}
+
+recompile() {
+    # only recompile if file.java has been modified
+    if [ "$1.java" -nt "$1.class" ] || [ ! -e "$1.class" ]; then
+        echo "$1.java has been modified since last read, recompiling..."
+        javac -Xlint -Xmaxerrs 3 "$1.java"
+    fi  
+}
+
+# if file.java and file.class exist, then
+# tab-completion will only take you as far as the '.'
+# this is a basename workaround for optimal laziness
+name=$(basename "$1" '.java')
+name=$(basename "$name" '.')
+
+# deal with additional args
+shift
+
+recompile "$name" && ( java -ea "$name" $@ || runmain $@ ) 
