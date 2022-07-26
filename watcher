@@ -1,0 +1,21 @@
+#!/usr/bin/dash
+
+if [ "$#" -lt 1 ]; then
+    echo "usage: $0 dir"
+    exit 1
+fi
+
+test_too=""
+if [ "$1" = "--test" ]; then
+    test_too="yes"
+    shift
+fi
+
+while inotifywait --quiet --event modify,create,delete --recursive "$1" ; do
+    echo "########################################"
+    clear
+    make && 
+    if [ ! -z "$test_too" ]; then
+        make test
+    fi
+done
