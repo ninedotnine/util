@@ -1,7 +1,7 @@
 #!/usr/bin/dash
 
 if [ "$#" -lt 1 ]; then
-    echo "usage: $0 dir"
+    echo "usage: $0 dir [target]"
     exit 1
 fi
 
@@ -14,8 +14,9 @@ fi
 while inotifywait --quiet --event modify,create,delete --recursive "$1" ; do
     echo "########################################"
     clear
-    make && 
+    make "$2" &&
     if [ ! -z "$test_too" ]; then
         make test
     fi
+    echo "########################################"
 done
