@@ -14,7 +14,11 @@ fi
 while inotifywait --quiet --event modify,create,delete --recursive "$1" ; do
     echo "########################################"
     clear
-    make "$2" &&
+    if [ ! -z "$2" ]; then
+        make "$2"
+    else
+        make
+    fi &&
     if [ ! -z "$test_too" ]; then
         make test
     fi
