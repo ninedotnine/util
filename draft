@@ -1,0 +1,56 @@
+#!/usr/bin/bash
+
+set -o errexit -o nounset -o pipefail
+
+# select a name/place
+choose_dir() {
+    dir=$(find ~/docs -type d | dmenu -i -l 5)
+}
+
+# drop into $EDITOR
+create_draft() {
+    filename=$(basename $(mktemp "$dir/draft-XXXXX.txt"))
+    "$EDITOR" "$dir/$filename"
+}
+
+delete_or_rename() {
+    echo -n "(d)elete or (r)ename? "
+    read -n 1 response
+    if [[ "$response" != "d" ]] && [[ "$response" != "r" ]]; then
+        delete_or_rename
+    else
+        if [[ "$response" = "d" ]]; then
+            mkdir -p '/tmp/drafts'
+            mv "$dir/$filename" '/tmp/drafts'
+            echo -e "\ndraft moved to /tmp/drafts"
+            exit 0
+        else
+            old_filename="$filename"
+            echo -e "\nname?"
+            read filename
+            mv "$dir/$old_filename" "$dir/$filename"
+            echo "saved as $dir/$filename"
+        fi
+    fi
+}
+
+main() {
+    local dir
+
+    choose_dir
+
+    if [[ ! -e "$dir" ]]; then
+        echo "$dir does not exist"
+        exit 127
+    fi
+
+    local filename
+    create_draft
+
+    echo "file $filename created in $dir"
+    delete_or_rename
+
+    xclip "$dir/$filename"
+}
+
+main
